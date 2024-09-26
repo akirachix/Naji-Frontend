@@ -32,7 +32,7 @@ const Login = () => {
     const response = await userlogin(data);
     if (response){
       setSuccessMessage("Logged in successfully! Let's go to your page .....")
-      setTimeout(() => router.push("/Home"), 1500)
+      setTimeout(() => router.push('./home'), 1500)
     }
   };
 
