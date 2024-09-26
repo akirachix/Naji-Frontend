@@ -23,7 +23,7 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const [apiError, setApiError] = useState<string | null>(null);
+  const [apiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
@@ -74,7 +74,7 @@ const Login = () => {
                   onClick={togglePasswordVisibility}
                   className="absolute right-[22%] top-1/2 transform -translate-y-1/2"
                 >
-                  {passwordVisible ? <FiEyeOff /> : <FiEye />}
+                  {passwordVisible ? <FiEye /> : <FiEyeOff />}
                 </button>
               </div>
               {errors.password && <p className="text-red-500 mt-1">{errors.password.message}</p>}
@@ -114,7 +114,7 @@ const Login = () => {
             <span className='w-[-80%] rounded-[25px]'>Continue with Google</span>
           </button>
           <p className="mt-16 ml-48 text-1xl">
-            Don't have an account?{' '}
+            Don&#39;t have an account?{' '}
             <a onClick={() => router.push('/signUp')} className="text-[#6b1d1d] hover:underline cursor-pointer">
               Sign Up
             </a>
@@ -134,6 +134,8 @@ const Login = () => {
 }
 
 export default Login;
+
+
 
 
 

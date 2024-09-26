@@ -19,7 +19,7 @@ const schema = yup.object().shape({
 
 type FormData = yup.InferType<typeof schema>;
 
-const signUp = () => {
+const SignUp = () => {
   const router = useRouter();
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: yupResolver(schema),
@@ -105,7 +105,7 @@ const signUp = () => {
                 onClick={togglePasswordVisibility}
                 className="absolute right-[22%] top-1/2 transform -translate-y-1/2"
               >
-                {passwordVisible ? <FiEyeOff /> : <FiEye />}
+                {passwordVisible ?  <FiEye /> : <FiEyeOff/>}
               </button>
             </div>
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
@@ -153,4 +153,6 @@ const signUp = () => {
   );
 };
 
-export default signUp;
+export default SignUp;
+
+
