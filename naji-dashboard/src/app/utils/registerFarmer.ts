@@ -29,8 +29,8 @@ export const registerFarmer = async (farmerData: FarmerDetails) => {
     const data = await response.json();
     return data;
 
-  } catch (error: any) {
-    console.error('Error during registration:', error.message);
+  } catch (error) {
+    console.error('Error during registration:', error as Error);
     throw error; 
   }
 };

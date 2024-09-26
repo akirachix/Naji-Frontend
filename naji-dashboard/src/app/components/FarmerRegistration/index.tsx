@@ -1,8 +1,9 @@
-"use client"; // Mark this file as a Client Component
+"use client"; 
+import { toast } from 'react-hot-toast';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
 import { useRegisterFarmer } from '@/app/hooks/useRegisterFarmer';
+import { FarmerDetails } from '@/app/utils/types';
 
 const FarmerRegistrationForm = () => {
   
@@ -10,7 +11,7 @@ const FarmerRegistrationForm = () => {
 
   const { error, submitfarmer } = useRegisterFarmer();
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: FarmerDetails) => {
     await submitfarmer({
       farmer_name: data.farmer_name,
       farmer_phone_number: data.farmer_phone_number,
