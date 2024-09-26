@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import { useGetPestIncident } from '../Components/hooks/useGetPestincident';
 import PestInfestationChart from '../Components/Linearchart';
@@ -7,10 +6,10 @@ import Layout from '../Components/Layout';
 
 
 export interface Pestincident {
-   incident_id: number;
-   detection_date: string;
-   confidence_score: number;
-   affected_area_percentage: number;
+   incident_id?: number;
+   detection_date?: number;
+   confidence_score?: number;
+   affected_area_percentage?: number;
 }
 const Dashboard = () => {
    const { pestIncidentData: pests, loading, error } = useGetPestIncident();
@@ -51,3 +50,4 @@ const Dashboard = () => {
 
 
 export default Dashboard;
+

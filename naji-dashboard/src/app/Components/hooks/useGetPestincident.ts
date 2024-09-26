@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { fetchPestincident } from '@/app/utils/fetchPestincident';
-import { fetchPest } from '@/app/utils/fetchPest';
 
 
 export const useGetPestIncident = () => {
- const [pestIncidentData, setPestIncidentData] = useState([fetchPest]);
+ const [pestIncidentData, setPestIncidentData] = useState();
  const [loading, setLoading] = useState(true);
- const [error, setError] = useState<string | null>(null);
+ const [error, setError] = useState<string | null>();
 
 
  useEffect(() => {
