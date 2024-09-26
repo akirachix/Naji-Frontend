@@ -32,7 +32,7 @@ const Login = () => {
     const response = await userlogin(data);
     if (response){
       setSuccessMessage("Logged in successfully! Let's go to your page .....")
-      setTimeout(() => router.push("/home"), 1500)
+      setTimeout(() => router.push("/Home"), 1500)
     }
   };
 
@@ -115,7 +115,7 @@ const Login = () => {
           </button>
           <p className="mt-16 ml-48 text-1xl">
             Don&#39;t have an account?{' '}
-            <a onClick={() => router.push('/signUp')} className="text-[#6b1d1d] hover:underline cursor-pointer">
+            <a onClick={() => router.push('/signup')} className="text-[#6b1d1d] hover:underline cursor-pointer">
               Sign Up
             </a>
           </p>
@@ -134,10 +134,6 @@ const Login = () => {
 }
 
 export default Login;
-
-
-
-
 
 
 

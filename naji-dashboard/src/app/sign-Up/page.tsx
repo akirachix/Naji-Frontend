@@ -125,7 +125,7 @@ const SignUp = () => {
 
 
            {successMessage && (
-              <p className="mt-2 text-green-500 text-center text-sm ml-30">
+              <p className="mt-2 text-green-500 text-sm ml-33">
                 {successMessage}
               </p>
             )}
@@ -136,7 +136,7 @@ const SignUp = () => {
             )}
           </div>
         </form>
-        <p className="mt-20 text-1xl text-center ml-[-9%]">
+        <p className="mt-20 text-1xl text-center ml-[-8%]">
           Already have an account?{' '}
           <a onClick={() => router.push('/login')} className="text-[#5b2a14] hover:underline text-1xl font-bold cursor-pointer">Login</a>
         </p>
