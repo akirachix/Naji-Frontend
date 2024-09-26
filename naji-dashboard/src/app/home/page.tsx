@@ -8,7 +8,7 @@ import Layout from '../Components/Layout';
 
 export interface Pestincident {
    incident_id: number;
-   detection_date: number;
+   detection_date: string;
    confidence_score: number;
    affected_area_percentage: number;
 }

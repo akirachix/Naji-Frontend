@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { fetchPestincident } from '@/app/utils/fetchPestincident';
-import { PestIncident } from '@/app/utils/types';
 import { fetchPest } from '@/app/utils/fetchPest';
 
 

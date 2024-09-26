@@ -1,9 +1,9 @@
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useGetPestIncident } from '../hooks/useGetPestincident';
-
 const PestInfestationChart = () => {
-const { pestIncidentData: incidents, loading, error } = useGetPestIncident();
+const { pestIncidentData: incidents, loading, 
+    error } = useGetPestIncident();
 if (loading) {
 return <div className="text-center text-lg">Loading data...</div>;
 }
