@@ -11,7 +11,7 @@ if (error) {
 return <div className="text-center text-lg text-red-500">Error: {error}</div>;
 }
 const allMonths = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const aggregateByMonth = (data: any[]) => {
+const aggregateByMonth = (data:any) => {
 const monthlyData: { [key: string]: any } = {};
 allMonths.forEach((month) => {
 monthlyData[month] = {
@@ -71,5 +71,8 @@ monthlyData[month] = {
 
 
 export default PestInfestationChart;
+
+
+
 
 
