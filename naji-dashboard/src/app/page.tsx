@@ -1,15 +1,10 @@
-
-import Layout from "./Components/Layout";
+import SignUp from "./sign-up/page";
 
 export default function Home() {
   return (
     <div>
-      <Layout>
-        <div>
-          
-        </div>
-      </Layout>
-    
+      <SignUp/>
     </div>
   );
 }
+
