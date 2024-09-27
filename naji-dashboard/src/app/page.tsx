@@ -39,7 +39,7 @@ const MainPage = () => {
     }
   }, [router]);
 
- return <p>Loading ...</p>
+ return null
 };
 
 export default MainPage;
