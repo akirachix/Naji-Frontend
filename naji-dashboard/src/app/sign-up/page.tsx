@@ -9,8 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { userSignup } from '../utils/usersignUp';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
-import { setCookie, getCookie} from 'cookies-next';
-
+import { setCookie, getCookie } from 'cookies-next'; 
 
 const schema = yup.object().shape({
   first_name: yup.string().required('First name is required'),
@@ -38,7 +37,7 @@ const SignUp = () => {
       if (response.error) {
         setApiError(response.error);
       } else {
-        setCookie('authToken', response.token, { maxAge: 60 * 60 * 24 * 365, path: '/' }); 
+        setCookie('authToken', response.token, { maxAge: 60 * 60 * 24 * 365, path: '/' });
 
         setSuccessMessage("Account created successfully! Let's go to Login .....");
         setTimeout(() => router.push("/login"), 2000);
@@ -52,7 +51,7 @@ const SignUp = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-
+ 
 
   return (
     <div className="flex">
@@ -145,6 +144,7 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
 
 
 

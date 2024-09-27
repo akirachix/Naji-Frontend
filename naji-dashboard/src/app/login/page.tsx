@@ -2,7 +2,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,6 +10,7 @@ import * as yup from 'yup';
 import userlogin from "../utils/userlogin";
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { setCookie } from 'cookies-next'; 
+import { getCookie } from 'cookies-next'; // Import to read cookies
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -24,9 +25,17 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const [apiError, setApiError] = useState<string | null>(null); // Added for handling API errors
+  const [apiError, setApiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
+
+
+  useEffect(() => {
+    const token = getCookie('authToken');
+    if (token) {
+      router.push('/dashboard'); 
+    }
+  }, [router]);
 
   const onSubmit = async (data: FormData) => {
     console.log('Login submitted', data);
@@ -40,7 +49,6 @@ const Login = () => {
 
       setSuccessMessage("Logged in successfully! Let's go to your page .....");
 
-      
       setTimeout(() => {
         router.push('/dashboard'); 
       }, 2000);
@@ -133,6 +141,7 @@ const Login = () => {
 }
 
 export default Login;
+
 
 
 
