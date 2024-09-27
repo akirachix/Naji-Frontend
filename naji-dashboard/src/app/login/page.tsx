@@ -1,6 +1,6 @@
 
+'use client';
 
-'use client'; 
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -8,8 +8,8 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import userlogin from "../utils/userlogin";
-import Cookies from 'js-cookie'; 
 import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { setCookie } from 'cookies-next'; 
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -24,21 +24,28 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const [apiError] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null); // Added for handling API errors
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const onSubmit = async (data: FormData) => {
     console.log('Login submitted', data);
     const response = await userlogin(data);
+    
     if (response) {
-      Cookies.set('authToken', response.token, { expires: 7 }); 
-      setSuccessMessage("Logged in successfully! Let's go to your page .....")
-
-      setTimeout(() => router.push("/dashboard"), 1500);
+      const { token } = response;
 
       
+      setCookie('token', token, { maxAge: 60 * 60 * 24 * 7 }); 
 
+      setSuccessMessage("Logged in successfully! Let's go to your page .....");
+
+      
+      setTimeout(() => {
+        router.push('/dashboard'); 
+      }, 2000);
+    } else {
+      setApiError("Login failed. Please try again."); 
     }
   };
 
@@ -50,7 +57,7 @@ const Login = () => {
     <div className="flex h-screen">
       <div className="w-1/2 bg-[#f5f0e6] p-8 flex items-center justify-center">
         <div className="w-full ml-20">
-          <h2 className="text-3xl mt-[-20px] font-extrabold mb-6 text-center">LogIn</h2>
+          <h2 className="text-3xl mt-[-20px] font-extrabold mb-6 text-center">Log In</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-20">
             <div>
               <label htmlFor="email" className="block mb-2">Email</label>

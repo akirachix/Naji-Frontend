@@ -1,15 +1,16 @@
 
 'use client';
 
-import React from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { userSignup } from '../utils/usersignUp';
-import { FiEye, FiEyeOff} from 'react-icons/fi';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { setCookie, getCookie} from 'cookies-next';
+
 
 const schema = yup.object().shape({
   first_name: yup.string().required('First name is required'),
@@ -25,31 +26,25 @@ const SignUp = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-  const [apiError, setApiError] = useState<string | null>(null);
 
+  const [apiError, setApiError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const onSubmit = async (data: FormData) => {
-    try{
-      console.log('SignUp submitted', data);
-
+    try {
       const response = await userSignup(data);
 
-      if(response.error){
-        setApiError(response.error)
+      if (response.error) {
+        setApiError(response.error);
+      } else {
+        setCookie('authToken', response.token, { maxAge: 60 * 60 * 24 * 365, path: '/' }); 
+
+        setSuccessMessage("Account created successfully! Let's go to Login .....");
+        setTimeout(() => router.push("/login"), 2000);
       }
-
-      else{
-        setSuccessMessage("Account created successfully! Let's go to Login .....")
-        setTimeout(() => router.push("/login"), 2000)
-      }
-    }
-
-    catch (error){
-      
-      setApiError((error as Error).message)
-
+    } catch (error) {
+      setApiError((error as Error).message);
     }
   };
 
@@ -57,19 +52,19 @@ const SignUp = () => {
     setPasswordVisible(!passwordVisible);
   };
 
+
+
   return (
     <div className="flex">
       <div className="w-1/2 mt-1 bg-[#f5f0e6] p-19 flex flex-col justify-center">
-        <div>
-          <h1 className='mt-[-20px] text-center text-4xl font-bold'>Sign Up</h1>
-        </div>
+        <h1 className='mt-[-20px] text-center text-4xl font-bold'>Sign Up</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="mt-14 ml-[10%] space-y-14">
           <div>
             <label htmlFor="first_name" className="block mb-2">First Name</label>
             <input
               id="first_name"
               {...register('first_name')}
-              className="w-[80%] py-5 border-2 pl-6  border-[#641414] rounded-[25px]"
+              className="w-[80%] py-5 border-2 pl-6 border-[#641414] rounded-[25px]"
             />
             {errors.first_name && <p className="text-red-500">{errors.first_name.message}</p>}
           </div>
@@ -78,7 +73,7 @@ const SignUp = () => {
             <input
               id="last_name"
               {...register('last_name')}
-              className="w-[80%] py-5 pl-6  border-2 border-[#641414] rounded-[25px]"
+              className="w-[80%] py-5 pl-6 border-2 border-[#641414] rounded-[25px]"
             />
             {errors.last_name && <p className="text-red-500">{errors.last_name.message}</p>}
           </div>
@@ -106,7 +101,7 @@ const SignUp = () => {
                 onClick={togglePasswordVisibility}
                 className="absolute right-[22%] top-1/2 transform -translate-y-1/2"
               >
-                {passwordVisible ?  <FiEye /> : <FiEyeOff/>}
+                {passwordVisible ? <FiEye /> : <FiEyeOff />}
               </button>
             </div>
             {errors.password && <p className="text-red-500">{errors.password.message}</p>}
@@ -114,18 +109,13 @@ const SignUp = () => {
           <div>
             <button
               type="submit"
-              className={`w-44 mt-20 ml-[30%] flex justify-center bg-[#5b2a14] text-white py-5 rounded-[25px] hover:bg-[#ef5b1c]"
-              ${isSubmitting ? "opacity-40 cursor-not-allowed" : ""
-
-              }`}
-
-              disabled = {isSubmitting}
+              className={`w-44 mt-20 ml-[30%] flex justify-center bg-[#5b2a14] text-white py-5 rounded-[25px] hover:bg-[#ef5b1c] ${isSubmitting ? "opacity-40 cursor-not-allowed" : ""}`}
+              disabled={isSubmitting}
             >
               {isSubmitting ? "Creating account...." : "Signup"}
             </button>
 
-
-           {successMessage && (
+            {successMessage && (
               <p className="mt-2 text-green-500 text-sm ml-33">
                 {successMessage}
               </p>
@@ -155,5 +145,8 @@ const SignUp = () => {
 };
 
 export default SignUp;
+
+
+
 
 
