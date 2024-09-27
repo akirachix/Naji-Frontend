@@ -3,7 +3,7 @@ import { fetchPest } from '@/app/utils/fetchPest';
 
 
 export const useGetPestData = () => {
- const [pestData, setPestData] = useState('');
+ const [pestData, setPestData] = useState();
  const [loading, setLoading] = useState(true);
  const [error, setError] = useState<string | null>(null);
 
