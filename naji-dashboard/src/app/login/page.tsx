@@ -1,5 +1,6 @@
 
-'use client';
+
+'use client'; 
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -34,7 +35,7 @@ const Login = () => {
       Cookies.set('authToken', response.token, { expires: 7 }); 
       setSuccessMessage("Logged in successfully! Let's go to your page .....")
 
-      setTimeout(() => router.push("/Home"), 1500);
+      setTimeout(() => router.push("/dashboard"), 1500);
 
       
 
@@ -125,7 +126,6 @@ const Login = () => {
 }
 
 export default Login;
-
 
 
 
