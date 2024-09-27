@@ -3,7 +3,8 @@
 import React from 'react';
 import PestInfestationChart from '../components/Linechart';
 import { useGetPestIncident } from '../hooks/useGetPestincident';
-import Layout from '../layout';
+import Layout from '../components/Layout';
+
 
 
 export interface Pestincident {

@@ -1,11 +1,10 @@
 
-import SignUp from "./sign-up/page";
+import Dashboard from "./homepage";
 
 export default function Home() {
   return (
     <div>
-    
-    <SignUp/> 
+    <Dashboard/>
     </div>
   );
 }
