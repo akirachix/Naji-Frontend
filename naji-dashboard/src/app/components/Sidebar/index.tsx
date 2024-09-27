@@ -9,10 +9,10 @@ const Sidebar = () => {
     const pathname = usePathname();
 
     const navItems = [
-        { name: 'Home', icon: 'home.png', path: '/' },
-        { name: 'Location', icon: 'location.png', path: '/location' },
-        { name: 'Statistics', icon: 'statistics.png', path: '/statistics' },
-        { name: 'Farmers', icon: 'user.png', path: '/farmers' },
+        { name: 'dashboard', icon: 'home.png', path: '/dashboard' },
+        { name: 'sales', icon: 'location.png', path: '/sales' },
+        { name: 'farmer-register', icon: 'statistics.png', path: '/farmer-registration' },
+        { name: 'farmer', icon: 'user.png', path: '/farmer' },
     ];
 
     return (
@@ -37,7 +37,7 @@ const Sidebar = () => {
                                 width={28} 
                                 height={28} 
                             />                       
-                            <h2 className="text-lg font-medium">{item.name}</h2>
+                            <h2 className="text-lg font-medium capitalize" >{item.name}</h2>
                         </div>
                     </Link>
                 ))}
