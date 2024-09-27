@@ -1,5 +1,5 @@
 
-import Dashboard from "./dashboard/page";
+
 
 'use client';
 

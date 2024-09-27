@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -35,7 +35,7 @@ const Login = () => {
     const response = await userlogin(data);
     
     if (response) {
-      const { token, email } = response;
+      const { token} = response;
       setCookie('authToken', token, { maxAge: 60 * 60 * 24 * 365, path: '/' });
       setSuccessMessage("Logged in successfully! Let's go to your page .....");
 
