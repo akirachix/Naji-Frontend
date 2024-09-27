@@ -112,7 +112,7 @@ const Login = () => {
           </button>
           <p className="mt-16 ml-48 text-1xl">
             Don&#39;t have an account?{' '}
-            <a onClick={() => router.push('/signup')} className="text-[#6b1d1d] hover:underline cursor-pointer">
+            <a onClick={() => router.push('/sign-up')} className="text-[#6b1d1d] hover:underline cursor-pointer">
               Sign Up
             </a>
           </p>
