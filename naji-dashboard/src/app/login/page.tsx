@@ -1,13 +1,13 @@
-'use client';
+'use client'; 
+
 import Image from 'next/image';
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import userlogin from "../utils/userlogin"
-
+import userlogin from "../utils/userlogin";
+import Cookies from 'js-cookie'; 
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const schema = yup.object().shape({
@@ -30,9 +30,10 @@ const Login = () => {
   const onSubmit = async (data: FormData) => {
     console.log('Login submitted', data);
     const response = await userlogin(data);
-    if (response){
+    if (response) {
+      Cookies.set('authToken', response.token, { expires: 7 }); 
       setSuccessMessage("Logged in successfully! Let's go to your page .....")
-      setTimeout(() => router.push("/Home"), 1500)
+      setTimeout(() => router.push("/Home"), 1500);
     }
   };
 
@@ -47,9 +48,7 @@ const Login = () => {
           <h2 className="text-3xl mt-[-20px] font-extrabold mb-6 text-center">LogIn</h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-20">
             <div>
-              <label htmlFor="email" className="block mb-2">
-                Email
-              </label>
+              <label htmlFor="email" className="block mb-2">Email</label>
               <input
                 type="text"
                 id="email"
@@ -59,15 +58,13 @@ const Login = () => {
               {errors.email && <p className="text-red-500 mt-1">{errors.email.message}</p>}
             </div>
             <div>
-              <label htmlFor="password" className="block mb-2">
-                Password
-              </label>
+              <label htmlFor="password" className="block mb-2">Password</label>
               <div className="relative">
                 <input
                   type={passwordVisible ? "text" : "password"}
                   id="password"
                   {...register('password')}
-                  className="w-[80%] py-5 pr-10  pl-6 border-2 border-[#641414] rounded-[25px]"
+                  className="w-[80%] py-5 pr-10 pl-6 border-2 border-[#641414] rounded-[25px]"
                 />
                 <button
                   type="button"
@@ -81,28 +78,18 @@ const Login = () => {
             </div>
             <button
               type="submit"
-              className={`w-44 mt-20 ml-[28%] flex justify-center bg-[#5b2a14] text-white py-5 rounded-[25px] hover:bg-[#ef5b1c]"
-                ${isSubmitting ? "opacity-40 cursor-not-allowed" : ""
-  
-                }`}
-  
-                disabled = {isSubmitting}
-              >
-                {isSubmitting ? "Logging you In...." : "Login"}
+              className={`w-44 mt-20 ml-[28%] flex justify-center bg-[#5b2a14] text-white py-5 rounded-[25px] hover:bg-[#ef5b1c] ${isSubmitting ? "opacity-40 cursor-not-allowed" : ""}`}
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Logging you In...." : "Login"}
             </button>
 
-
             {successMessage && (
-              <p className="mt-2 text-green-500 text-sm ml-48">
-                {successMessage}
-              </p>
+              <p className="mt-2 text-green-500 text-sm ml-48">{successMessage}</p>
             )}
-           {apiError && (
-              <p className="mt-2 text-red-500 text-center text-sm">
-                {apiError}
-              </p>
+            {apiError && (
+              <p className="mt-2 text-red-500 text-center text-sm">{apiError}</p>
             )}
-
           </form>
           <div className="mt-8 text-1xl ml-80">
             <span className="text-1xl">OR</span>
@@ -134,6 +121,7 @@ const Login = () => {
 }
 
 export default Login;
+
 
 
 
