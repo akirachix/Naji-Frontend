@@ -35,7 +35,7 @@ const Login = () => {
     const response = await userlogin(data);
     
     if (response) {
-      const { token} = response;
+      const {} = response;
       setCookie('isLoggedIn', true, { maxAge: 60 * 60 * 24 * 365, path: '/' });
       setSuccessMessage("Logged in successfully! Let's go to your page .....");
 
