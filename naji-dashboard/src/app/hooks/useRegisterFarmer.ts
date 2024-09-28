@@ -1,8 +1,7 @@
-"use client"; // Add this line to mark this file as a Client Component
+"use client"; 
 import { useState } from 'react';
-import { registerFarmer } from '../utils/registerFarmer'; 
+import { registerFarmer } from '../utils/registerFarmer';
 import { FarmerDetails } from '../utils/types';
-
 export const useRegisterFarmer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -26,7 +25,3 @@ export const useRegisterFarmer = () => {
   };
   return { submitfarmer, isSubmitting, error };
 };
-
-
-
-

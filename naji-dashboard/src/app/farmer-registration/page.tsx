@@ -8,7 +8,7 @@ const UserRegistrationPage = () => {
   return (
     <DashboardLayout>
       <FarmerRegistrationForm/>
-      <h1>User Registration</h1>
+      
     </DashboardLayout>
   );
 };
