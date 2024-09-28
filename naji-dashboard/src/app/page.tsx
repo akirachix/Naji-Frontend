@@ -9,8 +9,8 @@ const MainPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const token = getCookie('authToken');
-    if (token) {
+    const isLoggedIn = getCookie('isLoggedIn');
+    if (isLoggedIn) {
       
       router.push('/dashboard'); 
     } else {
