@@ -36,11 +36,11 @@ const Login = () => {
     
     if (response) {
       const { token} = response;
-      setCookie('authToken', token, { maxAge: 60 * 60 * 24 * 365, path: '/' });
+      setCookie('isLoggedIn', true, { maxAge: 60 * 60 * 24 * 365, path: '/' });
       setSuccessMessage("Logged in successfully! Let's go to your page .....");
 
       setTimeout(() => {
-        router.push('/dashboard'); 
+         router.push('/dashboard'); 
       }, 2000);
     } else {
       setApiError("Login failed. Please try again."); 
