@@ -40,9 +40,10 @@ const Dashboard = () => {
    const totalPestInfestation = pests?.reduce((total, pest) => total + pest.affected_area_percentage, 0) || 0;
 
    return (
-       <Layout>
+         <Layout>
            <div className="flex flex-col p-10 bg-gray-100">
                <div className="flex items-center justify-evenly mb-20 px-4">
+
                    <div className="p-2 bg-brown-600">
                        <div className="shadow-lg border-2 border-brown-600 w-[250px] h-[110px] rounded-lg p-4 flex flex-col items-center bg-white border-gray-500">
                            <p className="text-lg font-semibold text-black">Total Pests</p>
