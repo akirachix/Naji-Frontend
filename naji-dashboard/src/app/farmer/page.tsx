@@ -18,15 +18,18 @@ const FarmersDetails = () => {
   }
 
   const uniqueFarmersMap = new Map();
-  farmers.forEach(FarmersDetails => {
-    const key = FarmersDetails.farmer_name; 
+  farmers.forEach(farmer => {
+    const key = farmer.farmer_name;
     if (!uniqueFarmersMap.has(key)) {
-      uniqueFarmersMap.set(key, FarmersDetails);
+      uniqueFarmersMap.set(key, farmer);
     }
   });
-  const uniqueFarmers = Array.from(uniqueFarmersMap.values());
 
-  const filteredFarmers = uniqueFarmers.filter(farmerItem =>
+  const uniqueFarmers = Array.from(uniqueFarmersMap.values());
+  const recentFarmers = uniqueFarmers.slice(-5);
+  const otherFarmers = uniqueFarmers.slice(0, -5);
+
+  const filteredFarmers = otherFarmers.filter(farmerItem =>
     farmerItem.farmer_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     farmerItem.farmer_phone_number?.includes(searchTerm) ||
     farmerItem.farmer_county?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -39,17 +42,18 @@ const FarmersDetails = () => {
 
   return (
     <DashboardLayout>
-      <div className="pl-24 bg-gray-100 font-sans "> 
-        <h1 className="mr-40 text-3xl font-bold text-center mb-6 text-[#124502]">Farmers Details</h1>
-        <div className="bg-white rounded-lg w-4/4 mx-auto">
-          <div className="mr-60 p-4">
-            <div className="mr-40 relative w-full text-center">
-              <div className="flex items-center p-2 border border-[#3D0F00] rounded-xl mb-4 w-4/5 mx-auto">
+      <div className="pl-4 md:pl-12 lg:pl-24 bg-gray-100 font-sans overflow-y-scroll">
+        <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-center mb-6 text-[#124502]">Farmers Details</h1>
+        
+        <div className="bg-white rounded-lg w-full mx-auto">
+          <div className="p-4">
+            <div className="relative w-full text-center">
+              <div className="flex items-center p-2 border border-[#3D0F00] rounded-xl mb-4 w-full md:w-3/4 lg:w-1/2 mx-auto">
                 <Search className="text-gray-500 mr-2" />
                 <input
                   type="text"
                   placeholder="Search..."
-                  className="flex-grow outline-none p-2" 
+                  className="flex-grow outline-none p-2"
                   value={searchTerm}
                   onChange={(e) => {
                     setSearchTerm(e.target.value);
@@ -59,34 +63,67 @@ const FarmersDetails = () => {
               </div>
             </div>
           </div>
-          <table className="w-full divide-y font-bold">
-            <thead className="bg-gray-50 border-none"> 
-              <tr>
-                <th className="px-7 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#124502]">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#124502]">Phone number</th>
-                <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-[#124502]">Location</th>
-              </tr>
-            </thead>
-            <tbody className="text-black divide-y">
-              {currentFarmers.length === 0 ? (
+
+          <div className="mt-8">
+            <h2 className="text-lg md:text-2xl font-bold text-center text-[#124502] mb-4">Recent Farmers</h2>
+            <table className="w-full divide-y font-bold text-sm md:text-base">
+              <thead className="bg-gray-50">
                 <tr>
-                  <td colSpan={3} className="p-4 text-center text-[#124502]">Search Not Found</td>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Name</th>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Phone number</th>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Location</th>
                 </tr>
-              ) : (
-                currentFarmers.map((farmerItem, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap">{farmerItem.farmer_name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{farmerItem.farmer_phone_number}</td>
-                    <td className="px-6 py-4 whitespace-nowrap">{farmerItem.farmer_county}</td>
+              </thead>
+              <tbody className="text-black divide-y">
+                {recentFarmers.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} className="p-4 text-center text-[#124502]">No recent farmers found</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  recentFarmers.map((farmerItem, index) => (
+                    <tr key={index}>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_name}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_phone_number}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_county}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-8">
+            <h2 className="text-lg md:text-2xl font-bold text-center text-[#124502] mb-4">All Farmers</h2>
+            <table className="w-full divide-y font-bold text-sm md:text-base">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Name</th>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Phone number</th>
+                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Location</th>
+                </tr>
+              </thead>
+              <tbody className="text-black divide-y">
+                {currentFarmers.length === 0 ? (
+                  <tr>
+                    <td colSpan={3} className="p-4 text-center text-[#124502]">Search Not Found</td>
+                  </tr>
+                ) : (
+                  currentFarmers.map((farmerItem, index) => (
+                    <tr key={index}>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_name}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_phone_number}</td>
+                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_county}</td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
         </div>
+
         {totalPages > 1 && (
-          <div className=" mr-40 flex justify-center items-center mt-6 ">
-            <button 
+          <div className="flex justify-center items-center mt-6">
+            <button
               aria-label="Previous page"
               className="mx-1 w-8 h-8 flex items-center justify-center rounded-full border border-[#3D0F00]"
               onClick={() => setCurrentPage(currentPage - 1)}
@@ -98,7 +135,9 @@ const FarmersDetails = () => {
               <button
                 key={index + 1}
                 aria-label={`Go to page ${index + 1}`}
-                className={`mx-1  w-10 h-10 flex items-center justify-center rounded-full ${currentPage === index + 1 ? 'bg-green-900 text-white' : 'border border-[#3D0F00] font-bold'}`}
+                className={`mx-1 w-10 h-10 flex items-center justify-center rounded-full ${
+                  currentPage === index + 1 ? 'bg-green-900 text-white' : 'border border-[#3D0F00] font-bold'
+                }`}
                 onClick={() => setCurrentPage(index + 1)}
               >
                 {index + 1}

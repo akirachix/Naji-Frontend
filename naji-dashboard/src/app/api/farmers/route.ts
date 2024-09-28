@@ -1,6 +1,5 @@
+
 import { NextResponse } from "next/server";
-
-
 export async function GET() {
   const baseUrl = process.env.BASE_URL;
   try {
@@ -8,7 +7,8 @@ export async function GET() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
-      }
+      },
+      cache:'no-cache'
     });
     if (!response.ok) {
       return new NextResponse(`Failed to fetch farmers.` + response.text());
