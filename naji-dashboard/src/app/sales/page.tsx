@@ -86,14 +86,5 @@ const SalesDashboard = () => {
 };
 export default SalesDashboard;
 
-// useEffect(() => {
-//     if (farmers) {
-//       const uniqueFarmersMap = new Map<string, FarmerDetails>();
-//       const regionCounts: SalesData = {};
-//       farmers.forEach((farmerItem: FarmerDetails) => {
-//         const key = farmerItem.farmer_phone_number;
-//         // Rest of your logic
-//       });
-//     }
-//   }, [farmers]);
+
   
