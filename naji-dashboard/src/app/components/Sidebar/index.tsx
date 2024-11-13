@@ -8,7 +8,6 @@ const Sidebar = () => {
   const pathname = usePathname();
   const navItems = [
     { name: 'dashboard', icon: 'home.png', path: '/dashboard' },
-    { name: 'sales', icon: 'location.png', path: '/sales' },
     { name: 'farmer-register', icon: 'statistics.png', path: '/farmer-registration' },
     { name: 'farmer', icon: 'user.png', path: '/farmer' },
   ];

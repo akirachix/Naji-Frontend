@@ -17,22 +17,8 @@ const FarmersDetails = () => {
     return <div className="p-40 text-center text-red-500">Error: {error}</div>;
   }
 
-  const uniqueFarmersMap = new Map();
-  farmers.forEach(farmer => {
-    const key = farmer.farmer_name;
-    if (!uniqueFarmersMap.has(key)) {
-      uniqueFarmersMap.set(key, farmer);
-    }
-  });
-
-  const uniqueFarmers = Array.from(uniqueFarmersMap.values());
-  const recentFarmers = uniqueFarmers.slice(-5);
-  const otherFarmers = uniqueFarmers.slice(0, -5);
-
-  const filteredFarmers = otherFarmers.filter(farmerItem =>
-    farmerItem.farmer_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    farmerItem.farmer_phone_number?.includes(searchTerm) ||
-    farmerItem.farmer_county?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredFarmers = farmers.filter(farmer =>
+    farmer.farmer_name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredFarmers.length / farmersPerPage);
@@ -52,7 +38,7 @@ const FarmersDetails = () => {
                 <Search className="text-gray-500 mr-2" />
                 <input
                   type="text"
-                  placeholder="Search..."
+                  placeholder="Search by Name..."
                   className="flex-grow outline-none p-2"
                   value={searchTerm}
                   onChange={(e) => {
@@ -62,34 +48,6 @@ const FarmersDetails = () => {
                 />
               </div>
             </div>
-          </div>
-
-          <div className="mt-8">
-            <h2 className="text-lg md:text-2xl font-bold text-center text-[#124502] mb-4">Recent Farmers</h2>
-            <table className="w-full divide-y font-bold text-sm md:text-base">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Name</th>
-                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Phone number</th>
-                  <th className="px-4 py-3 text-left uppercase text-[#124502]">Location</th>
-                </tr>
-              </thead>
-              <tbody className="text-black divide-y">
-                {recentFarmers.length === 0 ? (
-                  <tr>
-                    <td colSpan={3} className="p-4 text-center text-[#124502]">No recent farmers found</td>
-                  </tr>
-                ) : (
-                  recentFarmers.map((farmerItem, index) => (
-                    <tr key={index}>
-                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_name}</td>
-                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_phone_number}</td>
-                      <td className="px-4 py-4 whitespace-nowrap">{farmerItem.farmer_county}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
           </div>
 
           <div className="mt-8">
@@ -105,7 +63,7 @@ const FarmersDetails = () => {
               <tbody className="text-black divide-y">
                 {currentFarmers.length === 0 ? (
                   <tr>
-                    <td colSpan={3} className="p-4 text-center text-[#124502]">Search Not Found</td>
+                    <td colSpan={3} className="p-4 text-center text-[#124502]">No farmers found</td>
                   </tr>
                 ) : (
                   currentFarmers.map((farmerItem, index) => (
